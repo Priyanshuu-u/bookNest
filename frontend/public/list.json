@@ -1,0 +1,93 @@
+[
+    {
+        "id": 1,
+        "name": "The Great Gatsby",
+        "title": "A classic tale of love, wealth, and the American Dream.",
+        "price": 0,
+        "category": "Classic",
+        "available":"Free",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/7/7a/The_Great_Gatsby_Cover_1925_Retouched.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Atomic Habits",
+        "title": "An easy and proven way to build good habits and break bad ones.",
+        "price": 499,
+        "category": "Self-Help",
+        "available":"Paid",
+        "image": "https://m.media-amazon.com/images/I/81F90H7hnML._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 3,
+        "name": "To Kill a Mockingbird",
+        "title": "A powerful exploration of racial injustice in the Deep South.",
+        "price": 0,
+        "category": "Fiction",
+        "available":"Free",
+        
+        "image": "https://m.media-amazon.com/images/I/81gepf1eMqL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Sapiens",
+        "title": "A brief history of humankind and our evolutionary journey.",
+        "price": 599,
+        "category": "Non-Fiction",
+        "available":"Paid",
+        "image": "https://m.media-amazon.com/images/I/713jIoMO3UL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Harry Potter and the Sorcerer's Stone",
+        "title": "The magical journey of a young wizard in the world of Hogwarts.",
+        "price": 0,
+        "category": "Fantasy",
+        "available":"Free",
+        "image": "https://m.media-amazon.com/images/I/81DI+BAN2SL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 6,
+        "name": "1984",
+        "title": "A dystopian novel about surveillance and totalitarianism.",
+        "price": 299,
+        "category": "Dystopian",
+        "available":"Paid",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3-U9GfgtlxCCMxEzVxd3r8jXcm7z5O-kfqA&s"
+    },
+    {
+        "id": 7,
+        "name": "The Alchemist",
+        "title": "A philosophical story about a shepherd's journey for treasure.",
+        "price": 350,
+        "category": "Adventure",
+        "available":"Paid",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKK2_jN9z5HOV3B9tvEn4kFqFGzqjP6aIhIQ&s"
+    },
+    {
+        "id": 8,
+        "name": "Pride and Prejudice",
+        "title": "A romantic story exploring love, class, and social standing.",
+        "price": 0,
+        "category": "Romance",
+        "available":"Free",
+        "image": "https://m.media-amazon.com/images/I/91fDvMK+aEL._AC_UF1000,1000_QL80_.jpg"
+    },
+    {
+        "id": 9,
+        "name": "The Subtle Art of Not Giving a F*ck",
+        "title": "A self-help guide to living a life true to oneself.",
+        "price": 450,
+        "category": "Self-Help",
+        "available":"Paid",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRH9lshM3Txz_QD8yjqogngMAEp5OQvoEwOg&s"
+    },
+    {
+        "id": 10,
+        "name": "The Book Thief",
+        "title": "A story about a young girl's love for books during World War II.",
+        "price": 499,
+        "category": "Historical Fiction",
+        "available":"Paid",
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnL9WQtxzq6rS7OdQsaWvDFxxoZXee7umH_w&s"
+    }
+]
