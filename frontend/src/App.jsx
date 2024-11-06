@@ -6,8 +6,9 @@ import Signup from './components/Signup.jsx';
 import Buys from './Buy/Buys.jsx'; // Import Buys component
 import { Toaster } from 'react-hot-toast';
 import AuthProvider, { useAuth } from './context/AuthProvider.jsx';
-
-function App() {
+import SellBooks from "./SellBooks/SellBooks.jsx"
+import Profile from './components/Profile.jsx';
+function App() { 
   const [authUser, setAuthUser] = useAuth(); // Get authUser from context
   console.log(authUser);
 
@@ -26,6 +27,15 @@ function App() {
             path="/buy"
             element={authUser ? <Buys authUser={authUser} /> : <Navigate to="/signup" />}
           />
+           <Route
+            path="/sell"
+            element={authUser ? <SellBooks authUser={authUser} /> : <Navigate to="/signup" />}
+          />
+          <Route
+            path="/books/profile"
+            element={authUser ? <Profile authUser={authUser} /> : <Navigate to="/signup" />}
+          />
+          
         </Routes>
         <Toaster />
       </div>

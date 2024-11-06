@@ -81,6 +81,9 @@ function Buy({ authUser }) {
             <p className="text-md italic text-gray-600">
               Category: {item.category}
             </p>
+            <p className="text-md italic text-gray-600">
+              Author: {item.author}
+            </p>
           </>
         ) : (
           <p className="text-lg font-semibold text-red-500">

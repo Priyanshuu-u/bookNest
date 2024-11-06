@@ -44,7 +44,7 @@ else{
         <a href='/explore'>Explore</a>
     </li>
     <li>
-        <a>Contact</a>
+        <a href='/sell'>Sell your Book</a>
     </li>
     <li>
         <a>About</a>
@@ -131,9 +131,12 @@ else{
 </label>
 {
   authUser?<Logout/>:<div >
+   
   <a className="btn bg-black text-white" onClick={()=> document.getElementById("my_modal_3").showModal()}>Login</a><Login/>
+  
 </div>
 }
+
   
   </div>
 </div>

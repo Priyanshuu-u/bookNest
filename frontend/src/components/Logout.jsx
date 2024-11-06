@@ -22,8 +22,9 @@ function Logout() {
         }
     }
   return (
-    <div>
-      <button className='px-3 py-2 bg-red-500 text-white rounded-md cursor-pointer' onClick={handleLogout}>Logout</button>
+    <div className='flex'>
+       <a className="btn px-3 py-3 bg-black text-white bg-pink-500 cursor-pointer mr-5 rounded-md " href="/books/profile" >Profile</a>
+      <button className='px-3 py-2 bg-purple-500 text-white rounded-md cursor-pointer' onClick={handleLogout}>Logout</button>
     </div>
   )
 }
