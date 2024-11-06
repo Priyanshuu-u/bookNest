@@ -6,7 +6,10 @@ const bookSchema=mongoose.Schema({
     price:Number,
     category:String,
     available:String,
-    image:String
+    image:String,
+    author: String,
+    comments:String,
+    
 })
 const Book=mongoose.model("Book",bookSchema);
 export default Book;
