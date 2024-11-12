@@ -17,13 +17,15 @@ export const addRating = async (req, res) => {
 // Controller to get all ratings/comments for a specific book
 export const getRatingsByBook = async (req, res) => {
   try {
-    // Fetch ratings based on the bookId param
-    const ratings = await Rating.find({ bookId: req.params.bookId }).populate(
-      "userId", // Populating the userId field
-      "fullname" // Fetching the username from the user document
+    const bookId = req.params.id;  // Get bookId from URL parameter
+    const ratings = await Rating.find({ bookId }).populate(
+      "userId", // Populate the user's info (optional)
+      "fullname" // Specify fields to retrieve if needed
     );
     res.json(ratings);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error fetching ratings" });
   }
 };
+

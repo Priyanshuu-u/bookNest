@@ -6,6 +6,9 @@ import bookRoute from "./route/book.route.js";
 import userRoute from "./route/user.route.js";
 import ratingsRouter from "./route/rating.route.js";
 import sellRouter from "./route/rating.route.js";
+import blogRoutes from "./route/blog.route.js";
+import searchRoute from "./route/search.route.js";
+
 const app = express();
 const corsOptions = {
   origin: 'http://localhost:5173', // Frontend URL
@@ -27,6 +30,9 @@ app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use("/", ratingsRouter);
 app.use("/sell",sellRouter)
+app.use('/blog', blogRoutes);
+app.use('/',searchRoute)
+app.use('/',bookRoute);
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });

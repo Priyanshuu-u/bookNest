@@ -1,108 +1,167 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../context/AuthProvider';  // If you have auth logic
+import axios from 'axios';
 import Login from './Login';
-import { useAuth } from '../context/AuthProvider';
 import Logout from './Logout';
-
+import { useNavigate } from 'react-router-dom';  // Use useNavigate instead of useHistory
 
 function Navbar() {
-  const [authUser, setAuthUser] =useAuth()
-  const [theme,setTheme] = useState(localStorage.getItem("theme")?localStorage.getItem("theme"):"light")
+  const [authUser, setAuthUser] = useAuth();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [searchQuery, setSearchQuery] = useState("");  // State to hold the search query
+  const [searchResults, setSearchResults] = useState([]);  // State to hold search results
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);  // For dropdown visibility
+
   const element = document.documentElement;
-  useEffect(()=>{
-if(theme==="dark"){
-  element.classList.add("dark");
-  localStorage.setItem("theme","dark");
-  document.body.classList.add("dark");
-}
-else{
-  element.classList.remove("dark");
-  localStorage.setItem("theme","light");
-  document.body.classList.remove("dark");
-}
-  },[theme]);
-   const [sticky,setSticky]=useState(false)
-   useEffect(()=>{
-    const handleScroll=()=>{
-      if(window.scrollY>0){
-        setSticky(true)
-      }
-      else{
+  const navigate = useNavigate();  // Use useNavigate for navigation
+
+  useEffect(() => {
+    if (theme === "dark") {
+      element.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      document.body.classList.add("dark");
+    } else {
+      element.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      document.body.classList.remove("dark");
+    }
+  }, [theme]);
+
+  const [sticky, setSticky] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setSticky(true);
+      } else {
         setSticky(false);
       }
-    }
-    window.addEventListener('scroll',handleScroll);
-    return()=>{
-      window.removeEventListener('scroll',handleScroll);
-    }
-   },[])
-    const navItems = (
-        <>
-          <li>
-        <a href='/'>Home</a>
-    </li>
-    <li>
-        <a href='/explore'>Explore</a>
-    </li>
-    <li>
-        <a href='/sell'>Sell your Book</a>
-    </li>
-    <li>
-        <a>About</a>
-    </li>
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
-        </>
-    )
+  const navItems = (
+    <>
+      <li><a href='/'>Home</a></li>
+      <li><a href='/explore'>Explore</a></li>
+      <li><a href='/sell'>Sell your Book</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href='/about'>About</a></li>
+    </>
+  );
+
+  // Handle theme toggle
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    if (e.target.value === "") {
+      setSearchResults([]);  // Clear results if search query is empty
+      setIsDropdownVisible(false);  // Hide dropdown if query is empty
+    }
+  };
+
+  // Handle search submit
+  const handleSearchSubmit = async (e) => {
+    e.preventDefault();  // Prevent form submission
+    const query = searchQuery;
+
+    if (!query) return;
+
+    try {
+      const response = await fetch(`http://localhost:4001/search?q=${query}`);
+      const result = await response.json();
+
+      if (response.ok) {
+        setSearchResults(result);
+        setIsDropdownVisible(true);  // Show dropdown when results are available
+      } else {
+        console.error('Error searching books:', result.message);
+      }
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  // Handle clicking on a search result
+  const handleResultClick = (bookId) => {
+    navigate(`/buy/${bookId}`);  // Use navigate instead of history.push
+    setIsDropdownVisible(false);  // Hide dropdown after selection
+  };
+
   return (
-  <>
-  <div className={`max-w-screen2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 dark:bg-slate-900 dark:text-white ${sticky?"sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out":""}`}>
-  <div className="navbar ">
-  <div className="navbar-start">
-    <div className="dropdown">
-      <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h8m-8 6h16" />
-        </svg>
-      </div>
-      <ul
-        tabIndex={0}
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow dark:bg-slate-900 dark:text-white dark:border-white">
-      {navItems}
-      </ul>
-    </div>
-    <a className="text-2xl font-bold cursor-pointer">BookNest</a>
-  </div>
-  <div className="navbar-end space-x-3">
-  <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
-   {navItems}
-    </ul>
-  </div>
-  <div className="hidden md:block">
-  <label className="input input-bordered flex items-center gap-2 dark:bg-slate-900 dark:text-white dark:border-white">
-  <input type="text" className="grow dark:bg-slate-900 dark:text-white" placeholder="Search"  />
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 16 16"
-    fill="currentColor"
-    className="h-4 w-4 opacity-70 dark:bg-slate-900 dark:text-white"
+    <>
+      <div className={`max-w-screen2xl container mx-auto md:px-20 px-4 fixed top-0 left-0 right-0 z-50 dark:bg-slate-900 dark:text-white ${sticky ? "sticky-navbar shadow-md bg-base-200 duration-300 transition-all ease-in-out" : ""}`}>
+        <div className="navbar">
+          <div className="navbar-start">
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+                </svg>
+              </div>
+              <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow dark:bg-slate-900 dark:text-white dark:border-white">
+                {navItems}
+              </ul>
+            </div>
+            <a className="text-2xl font-bold cursor-pointer">BookNest</a>
+          </div>
+
+          <div className="navbar-end space-x-3">
+            <div className="navbar-center hidden lg:flex">
+              <ul className="menu menu-horizontal px-1">
+                {navItems}
+              </ul>
+            </div>
+
+            {/* Search Bar */}
+            <div className="hidden md:block">
+              <form onSubmit={handleSearchSubmit} className="relative">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search Books..."
+                  className="input input-bordered dark:bg-slate-900 dark:text-white"
+                />
+                <button type="submit" className="absolute right-0 top-0 bottom-0 px-3 py-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" className="h-4 w-4">
+                    <path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </form>
+              {isDropdownVisible && searchResults.length > 0 && (
+                <div className="absolute bg-white shadow-lg w-full mt-2 rounded-lg dark:bg-slate-900 dark:text-white">
+                 <ul>
+  {searchResults.map((book) => (
+    <li
+      key={book._id}
+      onClick={() => handleResultClick(book._id)}
+      className="flex items-center p-2 cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-700"
     >
-    <path
-      fillRule="evenodd"
-      d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-      clipRule="evenodd" />
-  </svg>
-</label>
+      <img
+        src={book.image}
+        alt={book.title}
+        className="h-40 w-30 mr-2 rounded object-cover" // Added size and object-fit property
+      />
+       <div>
+    <p className="text-lg font-semibold">{book.name}</p>
+    <span className="text-sm text-gray-600">{" Author: " + book.author}</span>
   </div>
-  <label className="swap swap-rotate">
+    </li>
+  ))}
+</ul>
+
+                </div>
+              )}
+            </div>
+
+            <label className="swap swap-rotate">
   {/* this hidden checkbox controls the state */}
   <input type="checkbox" className="theme-controller" value="synthwave" />
 
@@ -137,12 +196,12 @@ else{
 </div>
 }
 
-  
-  </div>
-</div>
-  </div>
-  </>
-  )
+
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Navbar
+export default Navbar;

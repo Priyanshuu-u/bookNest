@@ -20,12 +20,13 @@ function Cards({ item }) {
           <div className="card-actions justify-between">
             <div className="badge badge-outline">{item.category}</div>
             <div className="badge badge-outline hover:bg-pink-500 hover:text-white px-5 py-2 duration-200 cursor-pointer">
-              <Link 
-                to="/buy" 
-                state={ {item }} // Pass item data to /buy page
-              >
-                Get Now!
-              </Link>
+            <Link 
+  to={`/buy/${item._id}`} // Passing the book ID in the URL
+  className="badge badge-outline hover:bg-pink-500 hover:text-white px-5 py-2 duration-200 cursor-pointer"
+>
+  Get Now!
+</Link>
+
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import { Toaster } from 'react-hot-toast';
 import AuthProvider, { useAuth } from './context/AuthProvider.jsx';
 import SellBooks from "./SellBooks/SellBooks.jsx"
 import Profile from './components/Profile.jsx';
+import Abouts from './about/Abouts.jsx';
+import Blogs from './blog/Blogs.jsx';
 function App() { 
   const [authUser, setAuthUser] = useAuth(); // Get authUser from context
   console.log(authUser);
@@ -24,7 +26,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           {/* Pass authUser to Buys.jsx */}
           <Route
-            path="/buy"
+            path={`/buy/:id`}
             element={authUser ? <Buys authUser={authUser} /> : <Navigate to="/signup" />}
           />
            <Route
@@ -35,7 +37,11 @@ function App() {
             path="/books/profile"
             element={authUser ? <Profile authUser={authUser} /> : <Navigate to="/signup" />}
           />
-          
+          <Route path="/about" element={<Abouts/>} />
+          <Route
+            path="/blog"
+            element={authUser ? <Blogs authUser={authUser} /> : <Navigate to="/signup" />}
+          />
         </Routes>
         <Toaster />
       </div>

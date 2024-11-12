@@ -9,10 +9,10 @@ import { sellBook } from "../controller/book.controller.js";
 const router = express.Router();
 
 // Route to add a rating/comment
-router.post("/ratings", addRating);
+router.post("/ratings/:id", addRating);
 
 // Route to get all ratings/comments for a specific book
-router.get("/ratings/:bookId", getRatingsByBook);
+router.get("/ratings/:id", getRatingsByBook);
 router.post("/sell",sellBook)
 
 export default router;
