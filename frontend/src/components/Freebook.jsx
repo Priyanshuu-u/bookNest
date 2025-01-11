@@ -50,7 +50,7 @@ function Freebook() {
   useEffect(()=>{
     const getBook=async()=>{
       try {
-      const res =  await axios.get(`{BASE_URL}`/book);
+      const res =  await axios.get(`{BASE_URL}`\book);
       console.log(res.data.filter((data) => data.available === "Free"));
       setBook(res.data.filter((data) => data.available === "Free"));
       } catch (error) {
