@@ -10,7 +10,7 @@ const SellBook = ({ authUser }) => {
   const [image, setImage] = useState('');
   const [author, setAuthor] = useState('');
   const [comments, setComments] = useState('');
-
+const BASE_URL = 'https://book-nest-backend-eosin.vercel.app/';
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,7 +22,7 @@ const SellBook = ({ authUser }) => {
     }
     try {
       const response = await axios.post(
-        'http://localhost:4001/sell',
+        `{BASE_URL}sell',
         {
           name,
           title,
