@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-
+const BASE_URL = 'https://your-backend-url.vercel.app';
 import axios from "axios"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -50,7 +50,7 @@ function Freebook() {
   useEffect(()=>{
     const getBook=async()=>{
       try {
-      const res =  await axios.get("http://localhost:4001/book");
+      const res =  await axios.get(`{BASE_URL}\book`);
       console.log(res.data.filter((data) => data.available === "Free"));
       setBook(res.data.filter((data) => data.available === "Free"));
       } catch (error) {
