@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Cards from "./Cards"
 import {Link} from "react-router-dom"
 import axios from "axios"
-const BASE_URL ='https://your-backend-url.vercel.app';
+const BASE_URL ='https://book-nest-backend-eosin.vercel.app';
 function Explore() {
   const [book,setBook]=useState([])
   useEffect(()=>{
