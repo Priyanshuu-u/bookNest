@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider'; 
 import axios from 'axios';
-const BASE_URL =  'https://your-backend-url.vercel.app' ;
+const BASE_URL =  'https://book-nest-backend-eosin.vercel.app' ;
 function Blog() {
   const [authUser] = useAuth(); 
   const [blogs, setBlogs] = useState([]);
