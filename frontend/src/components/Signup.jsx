@@ -4,7 +4,7 @@ import Login from './Login';
 import { useForm } from "react-hook-form";
 import axios from "axios"
 import toast from 'react-hot-toast';
-
+const BASE_URL = 'https://book-nest-backend-eosin.vercel.app/';
 function Signup() {
   const location=useLocation()
   const navigate=useNavigate()
@@ -16,7 +16,7 @@ function Signup() {
       email:data.email,
       password:data.password
     }
-   await axios.post("http://localhost:4001/user/signup",userInfo)
+   await axios.post(`{BASE_URL}user/signup`,userInfo)
     .then((res)=>{
       console.log(res.data);
       if(res.data){
