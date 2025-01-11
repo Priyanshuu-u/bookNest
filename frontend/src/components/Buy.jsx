@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
+const BASE_URL =  'https://your-backend-url.vercel.app' ;
 function Buy({authUser}) {
   const { id } = useParams(); // Get the book ID from the URL
   const [item, setItem] = useState(null);  // Initialize item state
@@ -12,7 +12,7 @@ function Buy({authUser}) {
   useEffect(() => {
     const fetchBookDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:4001/buy/${id}`);
+        const response = await axios.get(`{BASE_URL}/buy/${id}`);
         setItem(response.data);
       } catch (error) {
         console.error("Error fetching book details:", error);
@@ -21,7 +21,7 @@ function Buy({authUser}) {
 
     const fetchRatings = async () => {
       try {
-        const response = await axios.get(`http://localhost:4001/ratings/${id}`);
+        const response = await axios.get(`{BASE_URL}/ratings/${id}`);
         setRatings(response.data);
       } catch (error) {
         console.error('Error fetching ratings:', error);
@@ -52,7 +52,7 @@ function Buy({authUser}) {
 
     try {
       // Send the rating data to the backend API
-      await axios.post(`http://localhost:4001/ratings/${id}`, ratingData);
+      await axios.post(`{BASE_URL}/ratings/${id}`, ratingData);
 
       // Update the UI with the new rating and comment
       setRatings([...ratings, ratingData]);
