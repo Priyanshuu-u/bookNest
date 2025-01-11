@@ -11,7 +11,7 @@ import searchRoute from "./route/search.route.js";
 
 const app = express();
 const corsOptions = {
-  origin: 'https://book-nest-frontend-mauve.vercel.app', // Frontend URL
+  origin: ['http://localhost:5173', 'https://book-nest-frontend-mauve.vercel.app'], // Frontend URL
   credentials: true, // Allow sending cookies with requests
 };
 
