@@ -4,7 +4,7 @@ import axios from 'axios';
 import Login from './Login';
 import Logout from './Logout';
 import { useNavigate } from 'react-router-dom';  // Use useNavigate instead of useHistory
-
+const BASE_URL = 'https://book-nest-backend-eosin.vercel.app/';
 function Navbar() {
   const [authUser, setAuthUser] = useAuth();
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -74,7 +74,7 @@ function Navbar() {
     if (!query) return;
 
     try {
-      const response = await fetch(`http://localhost:4001/search?q=${query}`);
+      const response = await fetch(`{BASE_URL}search?q=${query}`);
       const result = await response.json();
 
       if (response.ok) {
