@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-const BASE_URL = 'https://book-nest-backend-eosin.vercel.app/'; 
-import axios from "axios"
+import axios from "axios";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Cards from './Cards';
 
+const BASE_URL = 'https://book-nest-backend-eosin.vercel.app/';  // Make sure this is correct
+
 function NextArrow(props) {
     const { className, style, onClick } = props;
-    
     return (
         <div
             className={className}
@@ -17,7 +17,6 @@ function NextArrow(props) {
                 display: "block",
                 background: "purple",
                 borderRadius: "50%",
-              
                 right: 10,
                 zIndex: 2,
             }}
@@ -36,7 +35,6 @@ function PrevArrow(props) {
                 display: "block",
                 background: "purple",
                 borderRadius: "50%",
-                
                 left: 10,
                 zIndex: 2,
             }}
@@ -46,21 +44,23 @@ function PrevArrow(props) {
 }
 
 function Freebook() {
-    const [book,setBook]=useState([])
-  useEffect(()=>{
-    const getBook=async()=>{
-      try {
-      const res =  await axios.get(`${BASE_URL}book`);
-      console.log(res.data.filter((data) => data.available === "Free"));
-      setBook(res.data.filter((data) => data.available === "Free"));
-      } catch (error) {
-        console.log("Error:" + error);
-      }
-    }
-    getBook();
-  },[])
-  
-    var settings = {
+    const [book, setBook] = useState([]);
+
+    useEffect(() => {
+        const getBook = async () => {
+            try {
+                console.log("Fetching from:", `${BASE_URL}book`);  // Debugging line
+                const res = await axios.get(`${BASE_URL}book`);
+                console.log(res.data.filter((data) => data.available === "Free"));
+                setBook(res.data.filter((data) => data.available === "Free"));
+            } catch (error) {
+                console.log("Error:", error);
+            }
+        };
+        getBook();
+    }, []);
+
+    const settings = {
         dots: true,
         infinite: false,
         speed: 500,
@@ -99,21 +99,19 @@ function Freebook() {
     };
 
     return (
-        <>
-            <div className='max-w-screen2xl container mx-auto md:px-20 px-4'>
-                <div>
-                    <h1 className='font-bold text-xl pb-2'>Freely Available Books</h1>
-                    <p>You can enjoy reading these books for free!</p>
-                </div>
-                <div>
-                    <Slider {...settings}>
-                        {book.map((item) => (
-                            <Cards item={item} key={item._id}></Cards>
-                        ))}
-                    </Slider>
-                </div>
+        <div className="max-w-screen2xl container mx-auto md:px-20 px-4">
+            <div>
+                <h1 className="font-bold text-xl pb-2">Freely Available Books</h1>
+                <p>You can enjoy reading these books for free!</p>
             </div>
-        </>
+            <div>
+                <Slider {...settings}>
+                    {book.map((item) => (
+                        <Cards item={item} key={item._id} />
+                    ))}
+                </Slider>
+            </div>
+        </div>
     );
 }
 
