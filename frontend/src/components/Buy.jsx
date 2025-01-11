@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-const BASE_URL =  'https://your-backend-url.vercel.app' ;
+const BASE_URL =  'https://book-nest-backend-eosin.vercel.app' ;
 function Buy({authUser}) {
   const { id } = useParams(); // Get the book ID from the URL
   const [item, setItem] = useState(null);  // Initialize item state
