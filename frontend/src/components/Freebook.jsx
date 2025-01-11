@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Slider from "react-slick";
-const BASE_URL = 'https://your-backend-url.vercel.app';
+const BASE_URL = 'https://book-nest-backend-eosin.vercel.app';
 import axios from "axios"
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
