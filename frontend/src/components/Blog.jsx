@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthProvider'; 
 import axios from 'axios';
-
+const BASE_URL =  'https://your-backend-url.vercel.app' ;
 function Blog() {
   const [authUser] = useAuth(); 
   const [blogs, setBlogs] = useState([]);
@@ -14,7 +14,7 @@ function Blog() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:4001/blog');
+        const response = await axios.get(`${BASE_URL}/blog`);
         setBlogs(response.data);
       } catch (error) {
         console.error("Failed to fetch blogs:", error);
@@ -33,7 +33,7 @@ function Blog() {
     }
 
     try {
-      const response = await axios.post('http://localhost:4001/blog', {
+      const response = await axios.post(`${BASE_URL}/blog`, {
         title,
         content,
         author: authUser._id, 
@@ -56,7 +56,7 @@ function Blog() {
   const handleEditSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:4001/blog/${editingBlog._id}`, {
+      const response = await axios.put(`${BASE_URL}/blog/${editingBlog._id}`, {
         title,
         content,
       });
@@ -72,7 +72,7 @@ function Blog() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:4001/blog/${id}`);
+      await axios.delete(`${BASE_URL}/blog/${id}`);
       setBlogs(blogs.filter((blog) => blog._id !== id));
     } catch (error) {
       console.error("Failed to delete blog:", error);
